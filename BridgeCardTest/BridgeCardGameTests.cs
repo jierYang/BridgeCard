@@ -25,11 +25,26 @@ namespace BridgeCardTest
             BridgeCardGame.GetGameResult(blackCards, whiteCard);
 
             //Assert
-            Assert.Equal(ColorType.Heart, BridgeCardGame.BlackCards.First().ColorType);
-            Assert.Equal('2', BridgeCardGame.BlackCards.First().Number);
+            Assert.Equal(CardColor.Heart, BridgeCardGame.BlackCards.First().CardColor);
+            Assert.Equal('2', BridgeCardGame.BlackCards.First().CardNumber.Number);
 
-            Assert.Equal(ColorType.Heart, BridgeCardGame.WhiteCards.Last().ColorType);
-            Assert.Equal('A', BridgeCardGame.WhiteCards.Last().Number);
+            Assert.Equal(CardColor.Heart, BridgeCardGame.WhiteCards.Last().CardColor);
+            Assert.Equal('A', BridgeCardGame.WhiteCards.Last().CardNumber.Number);
+        }
+        
+        [Fact]
+        public void ShouldGetGameResult()
+        {
+            //Arrange
+            var blackCards = "5H 3H 2H 4H 6H";
+
+            var whiteCard = "2C 3H 4S 8C AH";
+
+            //Act
+            var result = BridgeCardGame.GetGameResult(blackCards, whiteCard);
+
+            //Assert
+            Assert.Equal("Black wins - Straight flush",result);
         }
     }
 }

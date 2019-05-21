@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BridgeCard.Rule;
 
 namespace BridgeCard
 {
@@ -11,22 +11,29 @@ namespace BridgeCard
 
         public readonly IList<Card> WhiteCards;
 
+        private IEvaluator _evaluator;
+
         public BridgeCardGame()
         {
             BlackCards = new List<Card>();
 
             WhiteCards = new List<Card>();
+            _evaluator = new Evaluator(new List<IValidator>()
+            {
+                new HighCardValidator(),
+                new StraightFlushValidator()
+            });
         }
 
         public string GetGameResult(string blackCards, string whiteCards)
         {
             blackCards.Split(" ").ToList().ForEach(x =>
-                BlackCards.Add(new Card(x[0], ColorTypes.GetColorType(x[1]))));
+                BlackCards.Add(new Card(x[0], x[1])));
 
             whiteCards.Split(" ").ToList().ForEach(x =>
-                WhiteCards.Add(new Card(x[0], ColorTypes.GetColorType(x[1]))));
+                WhiteCards.Add(new Card(x[0], x[1])));
 
-            return null;
+            return _evaluator.EvaluateCardsWinner(BlackCards, WhiteCards);
         }
     }
 }

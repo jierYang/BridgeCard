@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace BridgeCard
 {
-    public enum ColorType
+    public enum CardColor
     {
         Diamond = 'D',
         Spade = 'S',
@@ -11,13 +11,13 @@ namespace BridgeCard
         Club = 'C'
     }
 
-    public static class ColorTypes
+    public static class ColorTypeProvider
     {
-        public static ColorType GetColorType(char colorType)
+        public static CardColor GetColorType(char colorType)
         {
             try
             {
-                return (ColorType) Enum.ToObject(typeof(ColorType), colorType);
+                return (CardColor) Enum.ToObject(typeof(CardColor), colorType);
             }
             
             catch (Exception exception)

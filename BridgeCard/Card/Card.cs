@@ -2,15 +2,15 @@ namespace BridgeCard
 {
     public class Card
     {
-        public ColorType ColorType { get; set; }
+        public CardColor CardColor { get; private set; }
 
-        public char Number { get; set; }
+        public CardNumber CardNumber { get; private set; }
 
-        public Card(char number, ColorType colorType)
+        public Card(char cardNumber, char cardColor)
         {
-            ColorType = colorType;
+            CardColor = ColorTypeProvider.GetColorType(cardColor);
 
-            Number = number;
+            CardNumber = new CardNumber(cardNumber);
         }
     }
 }
