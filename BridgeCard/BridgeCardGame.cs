@@ -16,12 +16,9 @@ namespace BridgeCard
 
         public BridgeCardGame()
         {
-            _evaluator = new Evaluator(new List<IValidator>()
-            {
-                new HighCardValidator(),
-                new StraightFlushValidator(),
-                new FourOfAKindValidator()
-            });
+            var dependency = new Dependency();
+            
+            _evaluator = dependency.Container.BeginLifetimeScope().Resolve<IEvaluator>();
             
             BlackCards = new List<Card>();
 

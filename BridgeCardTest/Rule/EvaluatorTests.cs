@@ -14,12 +14,9 @@ namespace BridgeCardTest.Rule
 
         public EvaluatorTests()
         {
-            _evaluator = new Evaluator(new List<IValidator>()
-            {
-                new HighCardValidator(),
-                new StraightFlushValidator(),
-                new FourOfAKindValidator()
-            });;
+            var testBase = new Dependency();
+            
+            _evaluator = testBase.Container.BeginLifetimeScope().Resolve<IEvaluator>();
         }
 
         [Fact]
