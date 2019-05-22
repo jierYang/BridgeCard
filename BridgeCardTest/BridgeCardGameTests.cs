@@ -4,13 +4,13 @@ using Xunit;
 
 namespace BridgeCardTest
 {
-    public class Class1
+    public class BridgeCardGameTests
     {
-        private readonly BridgeCardGame BridgeCardGame;
+        private readonly BridgeCardGame _bridgeCardGame;
 
-        public Class1()
+        public BridgeCardGameTests()
         {
-            BridgeCardGame = new BridgeCardGame();
+            _bridgeCardGame = new BridgeCardGame();
         }
 
         [Fact]
@@ -22,14 +22,14 @@ namespace BridgeCardTest
             var whiteCard = "2C 3H 4S 8C AH";
 
             //Act
-            BridgeCardGame.GetGameResult(blackCards, whiteCard);
+            _bridgeCardGame.GetGameResult(blackCards, whiteCard);
 
             //Assert
-            Assert.Equal(CardColor.Heart, BridgeCardGame.BlackCards.First().CardColor);
-            Assert.Equal('2', BridgeCardGame.BlackCards.First().CardNumber.Number);
+            Assert.Equal(CardColor.Heart, _bridgeCardGame.BlackCards.First().CardColor);
+            Assert.Equal('2', _bridgeCardGame.BlackCards.First().CardNumber.Number);
 
-            Assert.Equal(CardColor.Heart, BridgeCardGame.WhiteCards.Last().CardColor);
-            Assert.Equal('A', BridgeCardGame.WhiteCards.Last().CardNumber.Number);
+            Assert.Equal(CardColor.Heart, _bridgeCardGame.WhiteCards.Last().CardColor);
+            Assert.Equal('A', _bridgeCardGame.WhiteCards.Last().CardNumber.Number);
         }
         
         [Fact]
@@ -41,7 +41,7 @@ namespace BridgeCardTest
             var whiteCard = "2C 3H 4S 8C AH";
 
             //Act
-            var result = BridgeCardGame.GetGameResult(blackCards, whiteCard);
+            var result = _bridgeCardGame.GetGameResult(blackCards, whiteCard);
 
             //Assert
             Assert.Equal("Black wins - Straight flush",result);
@@ -54,7 +54,7 @@ namespace BridgeCardTest
             var cards = "5H 3H 2H 4H 6H";
 
             //Act
-            var result = BridgeCardGame.GetGameResult(cards, cards);
+            var result = _bridgeCardGame.GetGameResult(cards, cards);
 
             //Assert
             Assert.Equal("Tie",result);

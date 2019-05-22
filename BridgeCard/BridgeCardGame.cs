@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using BridgeCard.Rule;
 
 namespace BridgeCard
@@ -15,14 +16,16 @@ namespace BridgeCard
 
         public BridgeCardGame()
         {
-            BlackCards = new List<Card>();
-
-            WhiteCards = new List<Card>();
             _evaluator = new Evaluator(new List<IValidator>()
             {
                 new HighCardValidator(),
-                new StraightFlushValidator()
+                new StraightFlushValidator(),
+                new FourOfAKindValidator()
             });
+            
+            BlackCards = new List<Card>();
+
+            WhiteCards = new List<Card>();
         }
 
         public string GetGameResult(string blackCards, string whiteCards)

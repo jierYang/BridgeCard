@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using BridgeCard;
 using BridgeCard.Rule;
 using BridgeCardTest.Common;
@@ -9,7 +10,7 @@ namespace BridgeCardTest.Rule
 {
     public class EvaluatorTests
     {
-        private readonly Evaluator _evaluator;
+        private readonly IEvaluator _evaluator;
 
         public EvaluatorTests()
         {
@@ -17,7 +18,8 @@ namespace BridgeCardTest.Rule
             {
                 new HighCardValidator(),
                 new StraightFlushValidator(),
-            });
+                new FourOfAKindValidator()
+            });;
         }
 
         [Fact]
@@ -63,6 +65,15 @@ namespace BridgeCardTest.Rule
             var result = _evaluator.EvaluateCardsWinner(cards, cards);
 
             Assert.Equal("Tie", result);
+        }
+        
+        [Fact]
+        public void FourOfAKindAndHighCardsShouldGetFourOfAKindWins()
+        {
+            var result = _evaluator.EvaluateCardsWinner(CardsBuilder.CreateFourOfAKindCards(),
+                CardsBuilder.CreateHighCardCards());
+
+            Assert.Equal("Black wins - Four of a kind ", result);
         }
     }
 }

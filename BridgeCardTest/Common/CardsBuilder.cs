@@ -32,5 +32,19 @@ namespace BridgeCardTest.Common
 
             return cards;
         }
+        
+        public static IList<Card> CreateFourOfAKindCards()
+        {
+            var cards = new List<Card>
+            {
+                new Card('2', 'A'),
+                new Card('3', 'A'),
+                new Card('3', 'D'),
+                new Card('3', 'A'),
+                new Card('3', 'A')
+            };
+
+            return cards;
+        }
     }
 }
