@@ -12,16 +12,16 @@ namespace BridgeCard
         public int Priority { get; private set; }
 
         public string CardsType { get; private set; }
-        
+
         public int Point { get; private set; }
 
-        public Role Role { get; set; }
-
-        public HandCards(List<Card> cards, Role role)
+        public HandCards(string cards)
         {
-            Cards = cards;
+            var bCards = new List<Card>();
 
-            Role = role;
+            cards.Split(" ").ToList().ForEach(x => bCards.Add(new Card(x[0], x[1])));
+            
+            Cards = bCards;
         }
 
         public void ValidateType(IList<IValidator> validators)

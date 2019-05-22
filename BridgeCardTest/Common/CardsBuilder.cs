@@ -8,44 +8,17 @@ namespace BridgeCardTest.Common
     {
         public static HandCards CreateStraightFlushCards()
         {
-            var cards = new List<Card>
-            {
-                new Card('2', 'D'),
-                new Card('3', 'D'),
-                new Card('6', 'D'),
-                new Card('4', 'D'),
-                new Card('5', 'D')
-            };
-
-            return new HandCards(cards, Role.Black);
+            return new HandCards("2D 3D 6D 4D 5D");
         }
 
         public static HandCards CreateHighCardCards()
         {
-            var cards = new List<Card>
-            {
-                new Card('2', 'D'),
-                new Card('3', 'D'),
-                new Card('7', 'S'),
-                new Card('4', 'H'),
-                new Card('5', 'C')
-            };
-
-            return new HandCards(cards, Role.Black);
+            return new HandCards("2D 3D 7S 4H 5C");
         }
 
         public static HandCards CreateFourOfAKindCards()
         {
-            var cards = new List<Card>
-            {
-                new Card('2', 'A'),
-                new Card('3', 'A'),
-                new Card('3', 'D'),
-                new Card('3', 'A'),
-                new Card('3', 'A')
-            };
-
-            return new HandCards(cards, Role.Black);
+            return new HandCards("2A 3A 3D 3A 3A");
         }
     }
 }

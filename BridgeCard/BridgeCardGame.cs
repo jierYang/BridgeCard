@@ -10,35 +10,28 @@ namespace BridgeCard
 {
     public class BridgeCardGame
     {
-        public HandCards BlackCards;
+        public Player.Player BlackPlayer;
 
-        public HandCards WhiteCards;
+        public Player.Player WhitePlayer;
 
         private IEvaluator _evaluator;
 
         public BridgeCardGame()
         {
             var dependency = new Dependency();
-            
+
             _evaluator = dependency.Container.BeginLifetimeScope().Resolve<IEvaluator>();
         }
 
         public string GetGameResult(string blackCards, string whiteCards)
         {
-            BlackCards = new HandCards(InitHandCards(blackCards), Role.Black);
-            
-            WhiteCards = new HandCards(InitHandCards(whiteCards), Role.White);
+            BlackPlayer = new Player.Player(new HandCards(blackCards), Role.Black);
 
-            return _evaluator.EvaluateCardsWinner(BlackCards, WhiteCards);
+            WhitePlayer = new Player.Player(new HandCards(whiteCards), Role.White);
+
+            return _evaluator.EvaluateCardsWinner(BlackPlayer, WhitePlayer);
         }
 
-        private static List<Card> InitHandCards(string blackCards)
-        {
-            var bCards = new List<Card>();
-
-            blackCards.Split(" ").ToList().ForEach(x =>
-                bCards.Add(new Card(x[0], x[1])));
-            return bCards;
-        }
+        
     }
 }

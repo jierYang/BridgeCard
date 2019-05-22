@@ -15,27 +15,27 @@ namespace BridgeCard.Rule
             _validators = validators.OrderByDescending(x => x.Priority).ToList();
         }
 
-        public string EvaluateCardsWinner(HandCards blackCards, HandCards whiteCards)
+        public string EvaluateCardsWinner(Player.Player blackPlayer, Player.Player whitePlayer)
         {
-            blackCards.ValidateType(_validators);
-            
-            whiteCards.ValidateType(_validators);
-            
-            if (blackCards.Priority.Equals(whiteCards.Priority))
+            blackPlayer.HandCards.ValidateType(_validators);
+
+            whitePlayer.HandCards.ValidateType(_validators);
+
+            if (blackPlayer.HandCards.Priority.Equals(whitePlayer.HandCards.Priority))
             {
-                if (blackCards.Point == whiteCards.Point)
+                if (blackPlayer.HandCards.Point == whitePlayer.HandCards.Point)
                 {
                     return "Tie";
                 }
 
-                return blackCards.Point>whiteCards.Point
-                    ? string.Format("{0} wins - {1}", blackCards.Role, blackCards.CardsType)
-                    : string.Format("{0} wins - {1}", whiteCards.Role, blackCards.CardsType);
+                return blackPlayer.HandCards.Point > whitePlayer.HandCards.Point
+                    ? string.Format("{0} wins - {1}", blackPlayer.Role, blackPlayer.HandCards.CardsType)
+                    : string.Format("{0} wins - {1}", whitePlayer.Role, blackPlayer.HandCards.CardsType);
             }
 
-            return blackCards.Priority > whiteCards.Priority
-                ? string.Format("{0} wins - {1}", blackCards.Role, blackCards.CardsType)
-                : string.Format("{0} wins - {1}", whiteCards.Role, whiteCards.CardsType);
+            return blackPlayer.HandCards.Priority > whitePlayer.HandCards.Priority
+                ? string.Format("{0} wins - {1}", blackPlayer.Role, blackPlayer.HandCards.CardsType)
+                : string.Format("{0} wins - {1}", whitePlayer.Role, whitePlayer.HandCards.CardsType);
         }
     }
 }

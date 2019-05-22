@@ -14,7 +14,7 @@ namespace BridgeCardTest
         }
 
         [Fact]
-        public void ShouldInitBlackAndWhiteCard()
+        public void ShouldInitBlackAndWhitePlayer()
         {
             //Arrange
             var blackCards = "2H 3D 5S 9C KD";
@@ -25,15 +25,17 @@ namespace BridgeCardTest
             _bridgeCardGame.GetGameResult(blackCards, whiteCard);
 
             //Assert
-            Assert.Equal(CardColor.Heart, _bridgeCardGame.BlackCards.Cards.First().CardColor);
-            Assert.Equal('2', _bridgeCardGame.BlackCards.Cards.First().CardNumber.Number);
+            var firstBlackCard = _bridgeCardGame.BlackPlayer.HandCards.Cards.First();
+            Assert.Equal(CardColor.Heart, firstBlackCard.CardColor);
+            Assert.Equal('2', firstBlackCard.CardNumber.Number);
 
-            Assert.Equal(CardColor.Heart, _bridgeCardGame.WhiteCards.Cards.Last().CardColor);
-            Assert.Equal('A', _bridgeCardGame.WhiteCards.Cards.Last().CardNumber.Number);
+            var lastWhiteCard = _bridgeCardGame.WhitePlayer.HandCards.Cards.Last();            
+            Assert.Equal(CardColor.Heart, lastWhiteCard.CardColor);
+            Assert.Equal('A', lastWhiteCard.CardNumber.Number);
         }
         
         [Fact]
-        public void ShouldGetGameResult()
+        public void ShouldGetCorrectGameResult()
         {
             //Arrange
             var blackCards = "5H 3H 2H 4H 6H";

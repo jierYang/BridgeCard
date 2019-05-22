@@ -33,14 +33,7 @@ namespace BridgeCardTest.Rule.Validator
         public void ShouldValidateNotSatisfy()
         {
             //Arrange
-            var cards = new HandCards(new List<Card>
-            {
-                new Card('2', 'A'),
-                new Card('3', 'A'),
-                new Card('2', 'D'),
-                new Card('3', 'A'),
-                new Card('3', 'A')
-            }, Role.Black);
+            var cards = new HandCards("2A 3A 2D 3A 3A");
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);

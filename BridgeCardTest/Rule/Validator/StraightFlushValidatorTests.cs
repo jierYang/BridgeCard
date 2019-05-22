@@ -34,14 +34,7 @@ namespace BridgeCardTest.Rule.Validator
         public void WhenNotSameColorShouldReturnFalse()
         {
             //Arrange
-            var cards = new HandCards(new List<Card>
-            {
-                new Card('2', 'A'),
-                new Card('3', 'A'),
-                new Card('6', 'D'),
-                new Card('4', 'A'),
-                new Card('5', 'A')
-            }, Role.Black);
+            var cards = new HandCards("2A 3A 6D 4A 5A");
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);
@@ -54,14 +47,7 @@ namespace BridgeCardTest.Rule.Validator
         public void WhenNotStraightShouldReturnFalse()
         {
             //Arrange
-            var cards = new HandCards(new List<Card>
-            {
-                new Card('2', 'A'),
-                new Card('3', 'A'),
-                new Card('7', 'A'),
-                new Card('4', 'A'),
-                new Card('5', 'A')
-            }, Role.Black);
+            var cards = new HandCards("2A 3A 7A 4A 5A");
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);
