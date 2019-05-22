@@ -46,5 +46,18 @@ namespace BridgeCardTest
             //Assert
             Assert.Equal("Black wins - Straight flush",result);
         }
+        
+        [Fact]
+        public void ShouldGetGameResultTie()
+        {
+            //Arrange
+            var cards = "5H 3H 2H 4H 6H";
+
+            //Act
+            var result = BridgeCardGame.GetGameResult(cards, cards);
+
+            //Assert
+            Assert.Equal("Tie",result);
+        }
     }
 }

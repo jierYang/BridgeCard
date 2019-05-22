@@ -22,8 +22,11 @@ namespace BridgeCard.Rule
 
             if (blackValidator.Priority.Equals(whiteValidator.Priority))
             {
-                return string.Format("{0} - {1}", blackValidator.CompareCards(blackCards, whiteCards),
-                    blackValidator.CardsType);
+                var compareCards = blackValidator.CompareCards(blackCards, whiteCards);
+
+                return compareCards.Equals("Tie")
+                    ? "Tie"
+                    : string.Format("{0} - {1}", compareCards, blackValidator.CardsType);
             }
 
             return blackValidator.Priority > whiteValidator.Priority

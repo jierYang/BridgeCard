@@ -54,5 +54,15 @@ namespace BridgeCardTest.Rule
 
             Assert.Equal("Black wins - High Card", result);
         }
+        
+        [Fact]
+        public void SameCardsShouldGetTie()
+        {
+            var cards = CardsBuilder.CreateStraightFlushCards();
+            
+            var result = _evaluator.EvaluateCardsWinner(cards, cards);
+
+            Assert.Equal("Tie", result);
+        }
     }
 }
