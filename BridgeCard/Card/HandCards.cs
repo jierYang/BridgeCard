@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using BridgeCard.Player;
 using BridgeCard.Rule;
 
 namespace BridgeCard
@@ -8,22 +9,27 @@ namespace BridgeCard
     {
         public List<Card> Cards;
 
-        public IValidator Validator;
+        public int Priority { get; private set; }
 
-        public int Priority { get; set; }
+        public string CardsType { get; private set; }
+        
+        public int Point { get; private set; }
 
-        public string CardsType { get; set; }
+        public Role Role { get; set; }
 
-        public HandCards(List<Card> cards)
+        public HandCards(List<Card> cards, Role role)
         {
             Cards = cards;
+
+            Role = role;
         }
 
-        public void ValidateType(IList<IValidator> _validators)
+        public void ValidateType(IList<IValidator> validators)
         {
-            Validator = _validators.First(x => x.IsSatisfied(this));
-            Priority = Validator.Priority;
-            CardsType = Validator.CardsType;
+            var validator = validators.First(x => x.IsSatisfied(this));
+            Priority = validator.Priority;
+            CardsType = validator.CardsType;
+            Point = validator.CalculatePoints(this);
         }
     }
 }

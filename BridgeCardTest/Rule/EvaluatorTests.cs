@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using BridgeCard;
+using BridgeCard.Player;
 using BridgeCard.Rule;
 using BridgeCardTest.Common;
 using Xunit;
@@ -38,7 +39,7 @@ namespace BridgeCardTest.Rule
                 new Card('7', 'S'),
                 new Card('4', 'H'),
                 new Card('5', 'C')
-            });
+            }, Role.White);
 
             var blackCards = new HandCards(new List<Card>
             {
@@ -47,7 +48,7 @@ namespace BridgeCardTest.Rule
                 new Card('A', 'S'),
                 new Card('4', 'H'),
                 new Card('5', 'C')
-            });
+            }, Role.Black);
 
             var result = _evaluator.EvaluateCardsWinner(blackCards, whiteCards);
 

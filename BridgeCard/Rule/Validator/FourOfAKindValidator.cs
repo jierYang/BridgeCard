@@ -15,27 +15,13 @@ namespace BridgeCard.Rule
                 .Any(count => count == 4);
         }
 
-        public string CompareCards(HandCards blackCards, HandCards whiteCards)
+        public int CalculatePoints(HandCards handCards)
         {
-            var blackSameCard = GetSameCard(blackCards);
+            var sameCard = handCards.Cards.First().CardNumber.GetNumber();
 
-            var whiteSameCard = GetSameCard(whiteCards);
-
-            if (blackSameCard.Equals(whiteSameCard))
+            foreach (var card in handCards.Cards)
             {
-                return ComparedCardResult.Tie;
-            }
-
-            return blackSameCard > whiteSameCard ? ComparedCardResult.BlackWins : ComparedCardResult.WhiteWins;
-        }
-
-        private int GetSameCard(HandCards blackCards)
-        {
-            var sameCard = blackCards.Cards.First().CardNumber.GetNumber();
-
-            foreach (var card in blackCards.Cards)
-            {
-                var count = blackCards.Cards.Count(t => card.CardNumber.Number.Equals(t.CardNumber.Number));
+                var count = handCards.Cards.Count(t => card.CardNumber.Number.Equals(t.CardNumber.Number));
 
                 if (count == 4)
                 {

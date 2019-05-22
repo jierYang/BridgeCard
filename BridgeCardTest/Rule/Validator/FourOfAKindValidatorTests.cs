@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BridgeCard;
+using BridgeCard.Player;
 using BridgeCard.Rule;
 using BridgeCardTest.Common;
 using Xunit;
@@ -39,7 +40,7 @@ namespace BridgeCardTest.Rule.Validator
                 new Card('2', 'D'),
                 new Card('3', 'A'),
                 new Card('3', 'A')
-            });
+            }, Role.Black);
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BridgeCard;
+using BridgeCard.Player;
 using BridgeCard.Rule;
 using BridgeCardTest.Common;
 using Xunit;
@@ -33,17 +34,17 @@ namespace BridgeCardTest.Rule.Validator
         public void WhenNotSameColorShouldReturnFalse()
         {
             //Arrange
-            var cards = new List<Card>
+            var cards = new HandCards(new List<Card>
             {
                 new Card('2', 'A'),
                 new Card('3', 'A'),
                 new Card('6', 'D'),
                 new Card('4', 'A'),
                 new Card('5', 'A')
-            };
+            }, Role.Black);
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(new HandCards(cards));
+            var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -60,7 +61,7 @@ namespace BridgeCardTest.Rule.Validator
                 new Card('7', 'A'),
                 new Card('4', 'A'),
                 new Card('5', 'A')
-            });
+            }, Role.Black);
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);

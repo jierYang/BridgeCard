@@ -23,16 +23,19 @@ namespace BridgeCard.Rule
             
             if (blackCards.Priority.Equals(whiteCards.Priority))
             {
-                var winnerMessage = blackCards.Validator.CompareCards(blackCards, whiteCards);
+                if (blackCards.Point == whiteCards.Point)
+                {
+                    return "Tie";
+                }
 
-                return winnerMessage.Equals("Tie")
-                    ? "Tie"
-                    : string.Format("{0} - {1}", winnerMessage, blackCards.CardsType);
+                return blackCards.Point>whiteCards.Point
+                    ? string.Format("{0} wins - {1}", blackCards.Role, blackCards.CardsType)
+                    : string.Format("{0} wins - {1}", whiteCards.Role, blackCards.CardsType);
             }
 
             return blackCards.Priority > whiteCards.Priority
-                ? string.Format("Black wins - {0}", blackCards.CardsType)
-                : string.Format("White wins - {0}", whiteCards.CardsType);
+                ? string.Format("{0} wins - {1}", blackCards.Role, blackCards.CardsType)
+                : string.Format("{0} wins - {1}", whiteCards.Role, whiteCards.CardsType);
         }
     }
 }

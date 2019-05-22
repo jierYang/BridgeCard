@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
+using BridgeCard.Player;
 using BridgeCard.Rule;
 
 namespace BridgeCard
@@ -24,9 +25,9 @@ namespace BridgeCard
 
         public string GetGameResult(string blackCards, string whiteCards)
         {
-            BlackCards = new HandCards(InitHandCards(blackCards));
+            BlackCards = new HandCards(InitHandCards(blackCards), Role.Black);
             
-            WhiteCards = new HandCards(InitHandCards(whiteCards));
+            WhiteCards = new HandCards(InitHandCards(whiteCards), Role.White);
 
             return _evaluator.EvaluateCardsWinner(BlackCards, WhiteCards);
         }

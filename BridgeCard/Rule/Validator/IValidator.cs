@@ -11,6 +11,6 @@ namespace BridgeCard.Rule
 
         bool IsSatisfied(HandCards cards);
 
-        string CompareCards(HandCards blackCards, HandCards whiteCards);
+        int CalculatePoints(HandCards handCards);
     }
 }

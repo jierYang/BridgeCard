@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BridgeCard;
+using BridgeCard.Player;
 
 namespace BridgeCardTest.Common
 {
@@ -16,9 +17,9 @@ namespace BridgeCardTest.Common
                 new Card('5', 'D')
             };
 
-            return new HandCards(cards);
+            return new HandCards(cards, Role.Black);
         }
-        
+
         public static HandCards CreateHighCardCards()
         {
             var cards = new List<Card>
@@ -30,9 +31,9 @@ namespace BridgeCardTest.Common
                 new Card('5', 'C')
             };
 
-            return new HandCards(cards);
+            return new HandCards(cards, Role.Black);
         }
-        
+
         public static HandCards CreateFourOfAKindCards()
         {
             var cards = new List<Card>
@@ -44,7 +45,7 @@ namespace BridgeCardTest.Common
                 new Card('3', 'A')
             };
 
-            return new HandCards(cards);
+            return new HandCards(cards, Role.Black);
         }
     }
 }

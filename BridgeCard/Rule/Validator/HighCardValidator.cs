@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using BridgeCard.Rule.Common;
 
 namespace BridgeCard.Rule
@@ -14,9 +15,9 @@ namespace BridgeCard.Rule
             return true;
         }
 
-        public string CompareCards(HandCards blackCards, HandCards whiteCards)
+        public int CalculatePoints(HandCards handCards)
         {
-            return MaxCardExtension.GetCompareCardsResult(blackCards.Cards, whiteCards.Cards);
+            return handCards.Cards.Sum(t => t.CardNumber.GetNumber());
         }
     }
 }

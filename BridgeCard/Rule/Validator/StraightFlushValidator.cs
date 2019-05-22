@@ -22,10 +22,9 @@ namespace BridgeCard.Rule
             return isSameColor && isStraight;
         }
 
-
-        public string CompareCards(HandCards blackCards, HandCards whiteCards)
+        public int CalculatePoints(HandCards handCards)
         {
-            return MaxCardExtension.GetCompareCardsResult(blackCards.Cards, whiteCards.Cards);
+            return handCards.Cards.Max(x => x.CardNumber.GetNumber());
         }
     }
 }
