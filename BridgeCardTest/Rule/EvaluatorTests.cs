@@ -15,7 +15,7 @@ namespace BridgeCardTest.Rule
         public EvaluatorTests()
         {
             var testBase = new Dependency();
-            
+
             _evaluator = testBase.Container.BeginLifetimeScope().Resolve<IEvaluator>();
         }
 
@@ -31,39 +31,39 @@ namespace BridgeCardTest.Rule
         [Fact]
         public void BothHighCardsShouldGetMaxWin()
         {
-            var whiteCards = new List<Card>
+            var whiteCards = new HandCards(new List<Card>
             {
                 new Card('2', 'D'),
                 new Card('3', 'D'),
                 new Card('7', 'S'),
                 new Card('4', 'H'),
                 new Card('5', 'C')
-            };
+            });
 
-            var blackCards = new List<Card>
+            var blackCards = new HandCards(new List<Card>
             {
                 new Card('2', 'D'),
                 new Card('3', 'D'),
                 new Card('A', 'S'),
                 new Card('4', 'H'),
                 new Card('5', 'C')
-            };
+            });
 
             var result = _evaluator.EvaluateCardsWinner(blackCards, whiteCards);
 
             Assert.Equal("Black wins - High Card", result);
         }
-        
+
         [Fact]
         public void SameCardsShouldGetTie()
         {
             var cards = CardsBuilder.CreateStraightFlushCards();
-            
+
             var result = _evaluator.EvaluateCardsWinner(cards, cards);
 
             Assert.Equal("Tie", result);
         }
-        
+
         [Fact]
         public void FourOfAKindAndHighCardsShouldGetFourOfAKindWins()
         {

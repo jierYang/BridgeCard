@@ -11,11 +11,11 @@ namespace BridgeCard.Rule
         
         public string CardsType { get; set; } = "Straight flush";
 
-        public bool IsSatisfied(IList<Card> cards)
+        public bool IsSatisfied(HandCards cards)
         {
-            var isSameColor = cards.All(x => x.CardColor.Equals(cards.First().CardColor));
+            var isSameColor = cards.Cards.All(x => x.CardColor.Equals(cards.Cards.First().CardColor));
 
-            var list = cards.OrderBy(x => x.CardNumber.GetNumber()).ToList();
+            var list = cards.Cards.OrderBy(x => x.CardNumber.GetNumber()).ToList();
 
             var isStraight = StraightCardExtension.IsStraight(list);
 
@@ -23,9 +23,9 @@ namespace BridgeCard.Rule
         }
 
 
-        public string CompareCards(IList<Card> blackCards, IList<Card> whiteCards)
+        public string CompareCards(HandCards blackCards, HandCards whiteCards)
         {
-            return MaxCardExtension.GetCompareCardsResult(blackCards, whiteCards);
+            return MaxCardExtension.GetCompareCardsResult(blackCards.Cards, whiteCards.Cards);
         }
     }
 }

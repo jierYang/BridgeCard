@@ -9,14 +9,14 @@ namespace BridgeCard.Rule
 
         public string CardsType { get; set; } = "High Card";
 
-        public bool IsSatisfied(IList<Card> cards)
+        public bool IsSatisfied(HandCards cards)
         {
             return true;
         }
 
-        public string CompareCards(IList<Card> blackCards, IList<Card> whiteCards)
+        public string CompareCards(HandCards blackCards, HandCards whiteCards)
         {
-            return MaxCardExtension.GetCompareCardsResult(blackCards, whiteCards);
+            return MaxCardExtension.GetCompareCardsResult(blackCards.Cards, whiteCards.Cards);
         }
     }
 }

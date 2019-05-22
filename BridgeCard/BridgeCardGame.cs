@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
@@ -8,9 +9,9 @@ namespace BridgeCard
 {
     public class BridgeCardGame
     {
-        public readonly IList<Card> BlackCards;
+        public HandCards BlackCards;
 
-        public readonly IList<Card> WhiteCards;
+        public HandCards WhiteCards;
 
         private IEvaluator _evaluator;
 
@@ -19,21 +20,24 @@ namespace BridgeCard
             var dependency = new Dependency();
             
             _evaluator = dependency.Container.BeginLifetimeScope().Resolve<IEvaluator>();
-            
-            BlackCards = new List<Card>();
-
-            WhiteCards = new List<Card>();
         }
 
         public string GetGameResult(string blackCards, string whiteCards)
         {
-            blackCards.Split(" ").ToList().ForEach(x =>
-                BlackCards.Add(new Card(x[0], x[1])));
-
-            whiteCards.Split(" ").ToList().ForEach(x =>
-                WhiteCards.Add(new Card(x[0], x[1])));
+            BlackCards = new HandCards(InitHandCards(blackCards));
+            
+            WhiteCards = new HandCards(InitHandCards(whiteCards));
 
             return _evaluator.EvaluateCardsWinner(BlackCards, WhiteCards);
+        }
+
+        private static List<Card> InitHandCards(string blackCards)
+        {
+            var bCards = new List<Card>();
+
+            blackCards.Split(" ").ToList().ForEach(x =>
+                bCards.Add(new Card(x[0], x[1])));
+            return bCards;
         }
     }
 }

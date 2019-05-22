@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BridgeCard.Rule
 {
@@ -14,24 +15,24 @@ namespace BridgeCard.Rule
             _validators = validators.OrderByDescending(x => x.Priority).ToList();
         }
 
-        public string EvaluateCardsWinner(IList<Card> blackCards, IList<Card> whiteCards)
+        public string EvaluateCardsWinner(HandCards blackCards, HandCards whiteCards)
         {
-            var blackValidator = _validators.First(x => x.IsSatisfied(blackCards));
-
-            var whiteValidator = _validators.First(x => x.IsSatisfied(whiteCards));
-
-            if (blackValidator.Priority.Equals(whiteValidator.Priority))
+            blackCards.ValidateType(_validators);
+            
+            whiteCards.ValidateType(_validators);
+            
+            if (blackCards.Validator.Priority.Equals(whiteCards.Validator.Priority))
             {
-                var compareCards = blackValidator.CompareCards(blackCards, whiteCards);
+                var compareCards = blackCards.Validator.CompareCards(blackCards, whiteCards);
 
                 return compareCards.Equals("Tie")
                     ? "Tie"
-                    : string.Format("{0} - {1}", compareCards, blackValidator.CardsType);
+                    : string.Format("{0} - {1}", compareCards, blackCards.Validator.CardsType);
             }
 
-            return blackValidator.Priority > whiteValidator.Priority
-                ? string.Format("Black wins - {0}", blackValidator.CardsType)
-                : string.Format("Black wins - {0}", whiteValidator.CardsType);
+            return blackCards.Validator.Priority > whiteCards.Validator.Priority
+                ? string.Format("Black wins - {0}", blackCards.Validator.CardsType)
+                : string.Format("White wins - {0}", whiteCards.Validator.CardsType);
         }
     }
 }

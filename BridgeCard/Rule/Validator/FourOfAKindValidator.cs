@@ -9,13 +9,13 @@ namespace BridgeCard.Rule
 
         public string CardsType { get; set; } = "Four of a kind ";
 
-        public bool IsSatisfied(IList<Card> cards)
+        public bool IsSatisfied(HandCards cards)
         {
-            return cards.Select(x => cards.Count(t => x.CardNumber.Number.Equals(t.CardNumber.Number)))
+            return cards.Cards.Select(x => cards.Cards.Count(t => x.CardNumber.Number.Equals(t.CardNumber.Number)))
                 .Any(count => count == 4);
         }
 
-        public string CompareCards(IList<Card> blackCards, IList<Card> whiteCards)
+        public string CompareCards(HandCards blackCards, HandCards whiteCards)
         {
             var blackSameCard = GetSameCard(blackCards);
 
@@ -29,13 +29,13 @@ namespace BridgeCard.Rule
             return blackSameCard > whiteSameCard ? ComparedCardResult.BlackWins : ComparedCardResult.WhiteWins;
         }
 
-        private int GetSameCard(IList<Card> blackCards)
+        private int GetSameCard(HandCards blackCards)
         {
-            var sameCard = blackCards.First().CardNumber.GetNumber();
+            var sameCard = blackCards.Cards.First().CardNumber.GetNumber();
 
-            foreach (var card in blackCards)
+            foreach (var card in blackCards.Cards)
             {
-                var count = blackCards.Count(t => card.CardNumber.Number.Equals(t.CardNumber.Number));
+                var count = blackCards.Cards.Count(t => card.CardNumber.Number.Equals(t.CardNumber.Number));
 
                 if (count == 4)
                 {

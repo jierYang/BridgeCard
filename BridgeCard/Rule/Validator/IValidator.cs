@@ -9,8 +9,8 @@ namespace BridgeCard.Rule
         
         string CardsType { get; set; }
 
-        bool IsSatisfied(IList<Card> cards);
+        bool IsSatisfied(HandCards cards);
 
-        string CompareCards(IList<Card> blackCards, IList<Card> whiteCards);
+        string CompareCards(HandCards blackCards, HandCards whiteCards);
     }
 }

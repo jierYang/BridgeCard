@@ -20,7 +20,7 @@ namespace BridgeCardTest.Rule.Validator
         public void ShouldValidateStraightCard()
         {
             //Arrange
-            var cards =CardsBuilder.CreateStraightFlushCards();
+            var cards = CardsBuilder.CreateStraightFlushCards();
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);
@@ -28,7 +28,7 @@ namespace BridgeCardTest.Rule.Validator
             //Assert
             Assert.Equal(true, isSatisfied);
         }
-        
+
         [Fact]
         public void WhenNotSameColorShouldReturnFalse()
         {
@@ -43,7 +43,7 @@ namespace BridgeCardTest.Rule.Validator
             };
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _validator.IsSatisfied(new HandCards(cards));
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -53,14 +53,14 @@ namespace BridgeCardTest.Rule.Validator
         public void WhenNotStraightShouldReturnFalse()
         {
             //Arrange
-            var cards = new List<Card>
+            var cards = new HandCards(new List<Card>
             {
                 new Card('2', 'A'),
                 new Card('3', 'A'),
                 new Card('7', 'A'),
                 new Card('4', 'A'),
                 new Card('5', 'A')
-            };
+            });
 
             //Act
             var isSatisfied = _validator.IsSatisfied(cards);

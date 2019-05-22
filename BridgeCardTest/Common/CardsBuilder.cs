@@ -5,7 +5,7 @@ namespace BridgeCardTest.Common
 {
     public static class CardsBuilder
     {
-        public static IList<Card> CreateStraightFlushCards()
+        public static HandCards CreateStraightFlushCards()
         {
             var cards = new List<Card>
             {
@@ -16,10 +16,10 @@ namespace BridgeCardTest.Common
                 new Card('5', 'D')
             };
 
-            return cards;
+            return new HandCards(cards);
         }
         
-        public static IList<Card> CreateHighCardCards()
+        public static HandCards CreateHighCardCards()
         {
             var cards = new List<Card>
             {
@@ -30,10 +30,10 @@ namespace BridgeCardTest.Common
                 new Card('5', 'C')
             };
 
-            return cards;
+            return new HandCards(cards);
         }
         
-        public static IList<Card> CreateFourOfAKindCards()
+        public static HandCards CreateFourOfAKindCards()
         {
             var cards = new List<Card>
             {
@@ -44,7 +44,7 @@ namespace BridgeCardTest.Common
                 new Card('3', 'A')
             };
 
-            return cards;
+            return new HandCards(cards);
         }
     }
 }
