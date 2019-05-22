@@ -10,6 +10,10 @@ namespace BridgeCard
 
         public IValidator Validator;
 
+        public int Priority { get; set; }
+
+        public string CardsType { get; set; }
+
         public HandCards(List<Card> cards)
         {
             Cards = cards;
@@ -18,6 +22,8 @@ namespace BridgeCard
         public void ValidateType(IList<IValidator> _validators)
         {
             Validator = _validators.First(x => x.IsSatisfied(this));
+            Priority = Validator.Priority;
+            CardsType = Validator.CardsType;
         }
     }
 }

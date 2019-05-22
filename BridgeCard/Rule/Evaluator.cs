@@ -21,18 +21,18 @@ namespace BridgeCard.Rule
             
             whiteCards.ValidateType(_validators);
             
-            if (blackCards.Validator.Priority.Equals(whiteCards.Validator.Priority))
+            if (blackCards.Priority.Equals(whiteCards.Priority))
             {
-                var compareCards = blackCards.Validator.CompareCards(blackCards, whiteCards);
+                var winnerMessage = blackCards.Validator.CompareCards(blackCards, whiteCards);
 
-                return compareCards.Equals("Tie")
+                return winnerMessage.Equals("Tie")
                     ? "Tie"
-                    : string.Format("{0} - {1}", compareCards, blackCards.Validator.CardsType);
+                    : string.Format("{0} - {1}", winnerMessage, blackCards.CardsType);
             }
 
-            return blackCards.Validator.Priority > whiteCards.Validator.Priority
-                ? string.Format("Black wins - {0}", blackCards.Validator.CardsType)
-                : string.Format("White wins - {0}", whiteCards.Validator.CardsType);
+            return blackCards.Priority > whiteCards.Priority
+                ? string.Format("Black wins - {0}", blackCards.CardsType)
+                : string.Format("White wins - {0}", whiteCards.CardsType);
         }
     }
 }
