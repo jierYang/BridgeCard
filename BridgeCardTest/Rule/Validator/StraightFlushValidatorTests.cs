@@ -5,9 +5,9 @@ using Xunit;
 
 namespace BridgeCardTest.Rule.Validator
 {
-    public class StraightFlushValidatorTests : IValidatorTests
+    public class StraightFlushValidatorTests
     {
-        public IValidator Validator { get; } = new StraightFlushValidator();
+        private readonly StraightFlushValidator _validator = new StraightFlushValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -16,7 +16,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateStraightFlushHandCards();
 
             //Act
-            var isSatisfied = Validator.IsSatisfied(cards);
+            var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -29,7 +29,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = new HandCards("2A 3A 6D 4A 5A");
 
             //Act
-            var isSatisfied = Validator.IsSatisfied(cards);
+            var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -42,7 +42,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = new HandCards("2A 3A 7A 4A 5A");
 
             //Act
-            var isSatisfied = Validator.IsSatisfied(cards);
+            var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -55,7 +55,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateStraightFlushHandCards();
 
             //Act
-            var points = Validator.CalculatePoints(cards);
+            var points = _validator.CalculatePoints(cards);
 
             //Assert
             Assert.Equal(6, points);

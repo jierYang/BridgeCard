@@ -4,25 +4,12 @@ using Xunit;
 
 namespace BridgeCardTest.Rule.Validator
 {
-    public class FullHouseValidatorTests
+    public class HighCardValidatorTests
     {
-        private readonly FullHouseValidator _validator = new FullHouseValidator();
+        private readonly HighCardValidator _validator= new HighCardValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
-        {
-            //Arrange
-            var cards = CardsBuilder.CreateFullHouseHandCards();
-
-            //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
-
-            //Assert
-            Assert.Equal(true, isSatisfied);
-        }
-        
-        [Fact]
-        public void ShouldValidateNotSatisfy()
         {
             //Arrange
             var cards = CardsBuilder.CreateHighCardHandCards();
@@ -31,20 +18,20 @@ namespace BridgeCardTest.Rule.Validator
             var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
-            Assert.Equal(false, isSatisfied);
+            Assert.Equal(true, isSatisfied);
         }
 
         [Fact]
         public void ShouldCalculateCorrectPints()
         {
             //Arrange
-            var cards = CardsBuilder.CreateFourOfAKindHandCards();
+            var cards = CardsBuilder.CreateHighCardHandCards();
 
             //Act
             var points = _validator.CalculatePoints(cards);
 
             //Assert
-            Assert.Equal(3, points);
+            Assert.Equal(21, points);
         }
     }
 }

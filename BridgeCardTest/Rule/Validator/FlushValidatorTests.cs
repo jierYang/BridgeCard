@@ -4,9 +4,9 @@ using Xunit;
 
 namespace BridgeCardTest.Rule.Validator
 {
-    public class FlushValidatorTests : IValidatorTests
+    public class FlushValidatorTests
     {
-        public IValidator Validator { get; } = new FlushValidator();
+        private readonly FlushValidator _validator = new FlushValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -15,7 +15,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateFlushHandCards();
 
             //Act
-            var isSatisfied = Validator.IsSatisfied(cards);
+            var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -28,7 +28,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateHighCardHandCards();
 
             //Act
-            var isSatisfied = Validator.IsSatisfied(cards);
+            var isSatisfied = _validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -41,7 +41,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateFlushHandCards();
 
             //Act
-            var points = Validator.CalculatePoints(cards);
+            var points = _validator.CalculatePoints(cards);
 
             //Assert
             Assert.Equal(10, points);
