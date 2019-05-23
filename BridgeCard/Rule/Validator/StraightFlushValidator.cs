@@ -13,9 +13,7 @@ namespace BridgeCard.Rule.Validator
         {
             var isSameColor = handCards.Cards.All(x => x.CardColor.Equals(handCards.Cards.First().CardColor));
 
-            var list = handCards.Cards.OrderBy(x => x.CardNumber.GetNumber()).ToList();
-
-            var isStraight = StraightCardExtension.IsStraight(list);
+            var isStraight = StraightCardExtension.IsStraight(handCards.Cards);
 
             return isSameColor && isStraight;
         }

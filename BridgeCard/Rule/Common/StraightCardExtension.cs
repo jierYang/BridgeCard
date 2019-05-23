@@ -1,11 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BridgeCard.Rule.Common
 {
     public static class StraightCardExtension
     {
-        public static bool IsStraight(IList<Card> list)
+        public static bool IsStraight(IList<Card> cards)
         {
+            var list = cards.OrderBy(x => x.CardNumber.GetNumber()).ToList();
+
             var isStraight = true;
 
             for (var i = 0; i < list.Count - 1; i++)

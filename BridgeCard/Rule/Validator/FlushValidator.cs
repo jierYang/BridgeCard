@@ -18,7 +18,7 @@ namespace BridgeCard.Rule.Validator
 
         public int CalculatePoints(HandCards handCards)
         {
-            return handCards.Cards.OrderByDescending(x => x.CardNumber.GetNumber()).First().CardNumber.GetNumber();
+            return handCards.Cards.Max(x => x.CardNumber.GetNumber());
         }
     }
 }
