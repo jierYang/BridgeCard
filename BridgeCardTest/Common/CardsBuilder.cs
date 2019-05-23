@@ -44,5 +44,9 @@ namespace BridgeCardTest.Common
             return new HandCards("3A 3D 2H 6C 2H");
         }
         
+        public static HandCards CreatePairCards()
+        {
+            return new HandCards("3A 9D 2H 6C 2H");
+        }
     }
 }
