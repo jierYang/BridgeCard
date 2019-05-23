@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Autofac;
 using BridgeCard;
 using BridgeCard.Player;
@@ -9,27 +7,27 @@ using Xunit;
 
 namespace BridgeCardTest.Rule
 {
-    public class EvaluatorTests
+    public class DemandTests
     {
-        private readonly IEvaluator _evaluator;
+        private readonly IDemand _demand;
 
-        public EvaluatorTests()
+        public DemandTests()
         {
             var testBase = new Dependency();
 
-            _evaluator = testBase.Container.BeginLifetimeScope().Resolve<IEvaluator>();
+            _demand = testBase.Container.BeginLifetimeScope().Resolve<IDemand>();
         }
 
         [Fact]
         public void StraightFlushCardAndHighCardsShouldGetStraightFlushWins()
         {
-            var blackCards = CardsBuilder.CreateStraightFlushCards();
+            var blackCards = CardsBuilder.CreateStraightFlushHandCards();
             var blackPlayer = new Player(blackCards, Role.Black);
 
-            var whiteCards = CardsBuilder.CreateHighCardCards();
+            var whiteCards = CardsBuilder.CreateHighCardHandCards();
             var whitePlayer = new Player(whiteCards, Role.White);
 
-            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Black wins - Straight flush", result);
         }
@@ -41,7 +39,7 @@ namespace BridgeCardTest.Rule
 
             var blackPlayer = new Player(new HandCards("2D 3D AS 4H 5C"), Role.Black);
 
-            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Black wins - High Card", result);
         }
@@ -49,13 +47,13 @@ namespace BridgeCardTest.Rule
         [Fact]
         public void SameCardsShouldGetTie()
         {
-            var cards = CardsBuilder.CreateStraightFlushCards();
+            var cards = CardsBuilder.CreateStraightFlushHandCards();
 
             var blackPlayer = new Player(cards, Role.Black);
 
             var whitePlayer = new Player(cards, Role.White);
 
-            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Tie", result);
         }
@@ -63,13 +61,13 @@ namespace BridgeCardTest.Rule
         [Fact]
         public void FourOfAKindAndHighCardsShouldGetFourOfAKindWins()
         {
-            var blackCards = CardsBuilder.CreateFourOfAKindCards();
+            var blackCards = CardsBuilder.CreateFourOfAKindHandCards();
             var blackPlayer = new Player(blackCards, Role.Black);
 
-            var whiteCards = CardsBuilder.CreateHighCardCards();
+            var whiteCards = CardsBuilder.CreateHighCardHandCards();
             var whitePlayer = new Player(whiteCards, Role.White);
 
-            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Black wins - Four of a kind ", result);
         }

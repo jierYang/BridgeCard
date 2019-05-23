@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-
-namespace BridgeCard.Rule
+namespace BridgeCard.Rule.Validator
 {
     public interface IValidator
     {
@@ -9,7 +6,7 @@ namespace BridgeCard.Rule
         
         string CardsType { get; set; }
 
-        bool IsSatisfied(HandCards cards);
+        bool IsSatisfied(HandCards handCards);
 
         int CalculatePoints(HandCards handCards);
     }

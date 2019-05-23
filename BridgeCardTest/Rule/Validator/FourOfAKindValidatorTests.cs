@@ -1,34 +1,27 @@
-using System.Collections.Generic;
 using BridgeCard;
-using BridgeCard.Player;
-using BridgeCard.Rule;
+using BridgeCard.Rule.Validator;
 using BridgeCardTest.Common;
 using Xunit;
 
 namespace BridgeCardTest.Rule.Validator
 {
-    public class FourOfAKindValidatorTests
+    public class FourOfAKindValidatorTests : IValidatorTests
     {
-        private readonly FourOfAKindValidator _validator;
+        public IValidator Validator { get; } = new FourOfAKindValidator();
 
-        public FourOfAKindValidatorTests()
-        {
-            _validator = new FourOfAKindValidator();
-        }
-        
         [Fact]
         public void ShouldValidateSatisfy()
         {
             //Arrange
-            var cards = CardsBuilder.CreateFourOfAKindCards();
+            var cards = CardsBuilder.CreateFourOfAKindHandCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = Validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
         }
-        
+
         [Fact]
         public void ShouldValidateNotSatisfy()
         {
@@ -36,10 +29,23 @@ namespace BridgeCardTest.Rule.Validator
             var cards = new HandCards("2A 3A 2D 3A 3A");
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = Validator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
+        }
+
+        [Fact]
+        public void ShouldCalculateCorrectPints()
+        {
+            //Arrange
+            var cards = CardsBuilder.CreateFourOfAKindHandCards();
+
+            //Act
+            var points = Validator.CalculatePoints(cards);
+
+            //Assert
+            Assert.Equal(3, points);
         }
     }
 }

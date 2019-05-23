@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using BridgeCard.Rule.Common;
 
-namespace BridgeCard.Rule
+namespace BridgeCard.Rule.Validator
 {
     public class StraightFlushValidator : IValidator
     {
@@ -11,11 +9,11 @@ namespace BridgeCard.Rule
         
         public string CardsType { get; set; } = "Straight flush";
 
-        public bool IsSatisfied(HandCards cards)
+        public bool IsSatisfied(HandCards handCards)
         {
-            var isSameColor = cards.Cards.All(x => x.CardColor.Equals(cards.Cards.First().CardColor));
+            var isSameColor = handCards.Cards.All(x => x.CardColor.Equals(handCards.Cards.First().CardColor));
 
-            var list = cards.Cards.OrderBy(x => x.CardNumber.GetNumber()).ToList();
+            var list = handCards.Cards.OrderBy(x => x.CardNumber.GetNumber()).ToList();
 
             var isStraight = StraightCardExtension.IsStraight(list);
 

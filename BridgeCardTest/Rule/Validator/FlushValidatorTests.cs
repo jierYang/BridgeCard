@@ -1,19 +1,18 @@
-using BridgeCard;
 using BridgeCard.Rule.Validator;
 using BridgeCardTest.Common;
 using Xunit;
 
 namespace BridgeCardTest.Rule.Validator
 {
-    public class StraightFlushValidatorTests : IValidatorTests
+    public class FlushValidatorTests : IValidatorTests
     {
-        public IValidator Validator { get; } = new StraightFlushValidator();
+        public IValidator Validator { get; } = new FlushValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
         {
             //Arrange
-            var cards = CardsBuilder.CreateStraightFlushHandCards();
+            var cards = CardsBuilder.CreateFlushHandCards();
 
             //Act
             var isSatisfied = Validator.IsSatisfied(cards);
@@ -23,23 +22,10 @@ namespace BridgeCardTest.Rule.Validator
         }
 
         [Fact]
-        public void WhenNotSameColorShouldReturnFalse()
-        {
-            //Arrange
-            var cards = new HandCards("2A 3A 6D 4A 5A");
-
-            //Act
-            var isSatisfied = Validator.IsSatisfied(cards);
-
-            //Assert
-            Assert.Equal(false, isSatisfied);
-        }
-
-        [Fact]
         public void ShouldValidateNotSatisfy()
         {
             //Arrange
-            var cards = new HandCards("2A 3A 7A 4A 5A");
+            var cards = CardsBuilder.CreateHighCardHandCards();
 
             //Act
             var isSatisfied = Validator.IsSatisfied(cards);
@@ -52,13 +38,13 @@ namespace BridgeCardTest.Rule.Validator
         public void ShouldCalculateCorrectPints()
         {
             //Arrange
-            var cards = CardsBuilder.CreateStraightFlushHandCards();
+            var cards = CardsBuilder.CreateFlushHandCards();
 
             //Act
             var points = Validator.CalculatePoints(cards);
 
             //Assert
-            Assert.Equal(6, points);
+            Assert.Equal(10, points);
         }
     }
 }

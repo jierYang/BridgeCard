@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace BridgeCard.Rule
 {
-    public interface IEvaluator
+    public interface IDemand
     {
         string EvaluateCardsWinner(Player.Player blackPlayer, Player.Player whitePlayer);
     }

@@ -1,6 +1,4 @@
 using System;
-using System.Net.Mime;
-using System.Reflection;
 using Autofac;
 using BridgeCard.Rule;
 
@@ -13,7 +11,7 @@ namespace BridgeCard
         public Dependency()
         {
             var builder = new ContainerBuilder();  
-            builder.RegisterType<Evaluator>().As<IEvaluator>();  
+            builder.RegisterType<Demand>().As<IDemand>();  
           
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.Name.EndsWith("Validator"))

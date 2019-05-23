@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 
-namespace BridgeCard.Rule
+namespace BridgeCard.Rule.Validator
 {
     public class FourOfAKindValidator : IValidator
     {
@@ -9,9 +8,9 @@ namespace BridgeCard.Rule
 
         public string CardsType { get; set; } = "Four of a kind ";
 
-        public bool IsSatisfied(HandCards cards)
+        public bool IsSatisfied(HandCards handCards)
         {
-            return cards.Cards.Select(x => cards.Cards.Count(t => x.CardNumber.Number.Equals(t.CardNumber.Number)))
+            return handCards.Cards.Select(x => handCards.Cards.Count(t => x.CardNumber.Number.Equals(t.CardNumber.Number)))
                 .Any(count => count == 4);
         }
 

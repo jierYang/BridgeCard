@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
-using BridgeCard.Rule.Common;
 
-namespace BridgeCard.Rule
+namespace BridgeCard.Rule.Validator
 {
     public class HighCardValidator : IValidator
     {
@@ -10,7 +8,7 @@ namespace BridgeCard.Rule
 
         public string CardsType { get; set; } = "High Card";
 
-        public bool IsSatisfied(HandCards cards)
+        public bool IsSatisfied(HandCards handCards)
         {
             return true;
         }

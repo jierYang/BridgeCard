@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using BridgeCard.Player;
-using BridgeCard.Rule;
+using BridgeCard.Rule.Validator;
 
 namespace BridgeCard
 {
@@ -13,7 +12,7 @@ namespace BridgeCard
 
         public string CardsType { get; private set; }
 
-        public int Point { get; private set; }
+        public int Points { get; private set; }
 
         public HandCards(string cards)
         {
@@ -29,7 +28,7 @@ namespace BridgeCard
             var validator = validators.First(x => x.IsSatisfied(this));
             Priority = validator.Priority;
             CardsType = validator.CardsType;
-            Point = validator.CalculatePoints(this);
+            Points = validator.CalculatePoints(this);
         }
     }
 }
