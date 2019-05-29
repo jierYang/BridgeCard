@@ -6,37 +6,45 @@ namespace BridgeCard.Rule.Common
 {
     public static class CardExtension
     {
-        public static int CardCount => 5;
-        
-        public static int GetMaxCard(this HandCards handCards)
+        private static int CardCount => 5;
+
+        public static Card GetMaxCard(this HandCards handCards)
         {
-            return handCards.Cards.Max(x => x.CardNumber.GetNumber());
+            return handCards.Cards.OrderByDescending(item => item.CardNumber.GetNumber()).First();
         }
 
-        public static void OrderByDescending(this HandCards handCards)
-        {
-            handCards.Cards.OrderByDescending(x => x.CardNumber.GetNumber());
-        }
-
-        public static bool IsBiggerThan(this Card cardA, Card cardB)
+        private static bool IsBiggerThan(this Card cardA, Card cardB)
         {
             return cardA.CardNumber.GetNumber() > cardB.CardNumber.GetNumber();
         }
-        
+
         public static bool IsBiggerThanCards(this HandCards cardsA, HandCards cardsB)
         {
-            cardsA.OrderByDescending();
+            var a = cardsA.Cards.OrderByDescending(x => x.CardNumber.GetNumber()).ToList();
 
-            cardsB.OrderByDescending();
+            var b = cardsB.Cards.OrderByDescending(x => x.CardNumber.GetNumber()).ToList();
 
-            return cardsA.Cards.Where((t, i) => t.IsBiggerThan(cardsB.Cards[i])).Any();
+            for (var i = 0; i < CardCount; i++)
+            {
+                if (a[i].IsBiggerThan(b[i]))
+                {
+                    return true;
+                }
+
+                if (b[i].IsBiggerThan(a[i]))
+                {
+                    return false;
+                }
+            }
+
+            return false;
         }
 
         public static bool IsSameCardsNumber(this HandCards handCardsA, HandCards handCardsB)
         {
-            handCardsA.OrderByDescending();
+            var a = handCardsA.Cards.OrderByDescending(x => x.CardNumber.GetNumber()).ToList();
 
-            handCardsB.OrderByDescending();
+            var b = handCardsB.Cards.OrderByDescending(x => x.CardNumber.GetNumber()).ToList();
 
             for (var i = 0; i < CardCount; i++)
             {
@@ -48,16 +56,16 @@ namespace BridgeCard.Rule.Common
 
             return true;
         }
-        
+
         public static int GetCardNumberOfCount(this HandCards blackHandCards, int count)
         {
             var counts = blackHandCards.Cards.GroupBy(x => x.CardNumber.GetNumber())
                 .Select(g => new {Number = g.Key, Count = g.Count()})
-                .First(x=>x.Count==count);
+                .First(x => x.Count == count);
 
             return counts.Number;
         }
-        
+
         public static int GetMaxSingleCard(this HandCards handCards)
         {
             return handCards.Cards.GroupBy(x => x.CardNumber.GetNumber())

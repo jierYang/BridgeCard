@@ -20,7 +20,7 @@ namespace BridgeCard.Rule.Validator
                 return ComparedResult.Tie;
             }
 
-            return blackHandCards.GetMaxCard() > whiteHandCards.GetMaxCard()
+            return blackHandCards.GetMaxCard().CardNumber.GetNumber() > whiteHandCards.GetMaxCard().CardNumber.GetNumber()
                 ? ComparedResult.BlackWin
                 : ComparedResult.WhiteWin;
         }

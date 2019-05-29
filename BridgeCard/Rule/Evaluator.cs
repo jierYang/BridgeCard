@@ -50,7 +50,9 @@ namespace BridgeCard.Rule
             if (winner.HandCards.CardsType.TypeName.Equals("High Card"))
             {
                 return string.Format("{0} wins - {1}: {2}", winner.Role, winner.HandCards.CardsType.TypeName,
-                    winner.HandCards.GetMaxCard());
+                    winner.HandCards.GetMaxCard().CardNumber.Number == 'A'
+                        ? "Ace"
+                        : winner.HandCards.GetMaxCard().CardNumber.Number.ToString());
             }
 
             return string.Format("{0} wins - {1}", winner.Role, winner.HandCards.CardsType.TypeName);
