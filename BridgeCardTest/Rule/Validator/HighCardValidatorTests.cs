@@ -6,7 +6,7 @@ namespace BridgeCardTest.Rule.Validator
 {
     public class HighCardValidatorTests
     {
-        private readonly HighCardValidator _validator= new HighCardValidator();
+        private readonly HighCardTypeValidator _typeValidator= new HighCardTypeValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -15,7 +15,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateHighCardHandCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -27,11 +27,7 @@ namespace BridgeCardTest.Rule.Validator
             //Arrange
             var cards = CardsBuilder.CreateHighCardHandCards();
 
-            //Act
-            var points = _validator.CalculatePoints(cards);
-
-            //Assert
-            Assert.Equal(21, points);
+           CardsBuilder.CreateFourOfAKindHandCards();
         }
     }
 }

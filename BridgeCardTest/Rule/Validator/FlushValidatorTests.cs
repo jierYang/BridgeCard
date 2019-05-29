@@ -6,7 +6,7 @@ namespace BridgeCardTest.Rule.Validator
 {
     public class FlushValidatorTests
     {
-        private readonly FlushValidator _validator = new FlushValidator();
+        private readonly FlushTypeValidator _typeValidator = new FlushTypeValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -15,7 +15,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateFlushHandCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -28,23 +28,24 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateHighCardHandCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
         }
 
         [Fact]
-        public void ShouldCalculateCorrectPints()
+        public void ShouldCorrectCompareSameTypeCards()
         {
             //Arrange
             var cards = CardsBuilder.CreateFlushHandCards();
+            var other = CardsBuilder.CreateFlushHandCards();
 
             //Act
-            var points = _validator.CalculatePoints(cards);
+            var result = _typeValidator.CompareSameTypeCards(cards,other);
 
             //Assert
-            Assert.Equal(10, points);
+            Assert.Equal(ComparedResult.Tie, result);
         }
     }
 }

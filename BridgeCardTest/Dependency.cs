@@ -11,7 +11,7 @@ namespace BridgeCardTest
         public Dependency()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<Demand>().As<IDemand>();
+            builder.RegisterType<Evaluator>().As<IEvaluator>();
             
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.Name.EndsWith("Validator"))

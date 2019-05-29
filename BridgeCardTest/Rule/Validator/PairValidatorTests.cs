@@ -7,7 +7,7 @@ namespace BridgeCardTest.Rule.Validator
 {
     public class PairValidatorTests
     {
-        private readonly PairValidator _validator = new PairValidator();
+        private readonly PairTypeValidator _typeValidator = new PairTypeValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -16,7 +16,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreatePairCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -29,7 +29,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = new HandCards("2A 3A 6D 4A 5A");
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -42,7 +42,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = new HandCards("2A 3A 7A 4A 5A");
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -53,12 +53,14 @@ namespace BridgeCardTest.Rule.Validator
         {
             //Arrange
             var cards = CardsBuilder.CreatePairCards();
+            
+            var other = CardsBuilder.CreatePairCards();
 
             //Act
-            var points = _validator.CalculatePoints(cards);
+            var result = _typeValidator.CompareSameTypeCards(cards, other);
 
             //Assert
-            Assert.Equal(20, points);
+            Assert.Equal(ComparedResult.Tie, result);
         }
     }
 }

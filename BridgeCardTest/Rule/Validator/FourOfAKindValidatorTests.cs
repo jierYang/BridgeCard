@@ -7,7 +7,7 @@ namespace BridgeCardTest.Rule.Validator
 {
     public class FourOfAKindValidatorTests
     {
-        private readonly IValidator _validator = new FourOfAKindValidator();
+        private readonly ITypeValidator _typeValidator = new FourOfAKindTypeValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -16,7 +16,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateFourOfAKindHandCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -29,7 +29,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = new HandCards("2A 3A 2D 3A 3A");
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -40,12 +40,13 @@ namespace BridgeCardTest.Rule.Validator
         {
             //Arrange
             var cards = CardsBuilder.CreateFourOfAKindHandCards();
+            var other = CardsBuilder.CreateFourOfAKindHandCards();
 
             //Act
-            var points = _validator.CalculatePoints(cards);
+            var result = _typeValidator.CompareSameTypeCards(cards,other);
 
             //Assert
-            Assert.Equal(3, points);
+            Assert.Equal(ComparedResult.Tie, result);
         }
     }
 }

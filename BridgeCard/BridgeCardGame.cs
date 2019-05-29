@@ -14,13 +14,13 @@ namespace BridgeCard
 
         public Player.Player WhitePlayer;
 
-        private IDemand _demand;
+        private readonly IEvaluator _evaluator;
 
         public BridgeCardGame()
         {
             var dependency = new Dependency();
 
-            _demand = dependency.Container.BeginLifetimeScope().Resolve<IDemand>();
+            _evaluator = dependency.Container.BeginLifetimeScope().Resolve<IEvaluator>();
         }
 
         public string GetGameResult(string blackCards, string whiteCards)
@@ -29,7 +29,7 @@ namespace BridgeCard
 
             WhitePlayer = new Player.Player(new HandCards(whiteCards), Role.White);
 
-            return _demand.EvaluateCardsWinner(BlackPlayer, WhitePlayer);
+            return _evaluator.EvaluateCardsWinner(BlackPlayer, WhitePlayer);
         }
 
         

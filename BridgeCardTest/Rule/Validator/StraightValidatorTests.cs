@@ -6,7 +6,7 @@ namespace BridgeCardTest.Rule.Validator
 {
     public class StraightValidatorTests
     {
-        private readonly StraightValidator _validator = new StraightValidator();
+        private readonly StraightTypeValidator _typeValidator = new StraightTypeValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -15,7 +15,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateStraightCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -28,7 +28,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateFullHouseHandCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -39,12 +39,14 @@ namespace BridgeCardTest.Rule.Validator
         {
             //Arrange
             var cards = CardsBuilder.CreateStraightCards();
+            
+            var other = CardsBuilder.CreateStraightCards();
 
             //Act
-            var points = _validator.CalculatePoints(cards);
+            var result = _typeValidator.CompareSameTypeCards(cards, other);
 
             //Assert
-            Assert.Equal(6, points);
+            Assert.Equal(ComparedResult.Tie, result);
         }
     }
 }

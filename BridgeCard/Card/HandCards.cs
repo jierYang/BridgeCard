@@ -8,11 +8,7 @@ namespace BridgeCard
     {
         public List<Card> Cards;
 
-        public int Priority { get; private set; }
-
-        public string CardsType { get; private set; }
-
-        public int Points { get; private set; }
+        public ITypeValidator CardsType { get; private set; }
 
         public HandCards(string cards)
         {
@@ -23,12 +19,11 @@ namespace BridgeCard
             Cards = bCards;
         }
 
-        public void ValidateType(IList<IValidator> validators)
+        public ITypeValidator GetCardsType(IList<ITypeValidator> validators)
         {
-            var validator = validators.First(x => x.IsSatisfied(this));
-            Priority = validator.Priority;
-            CardsType = validator.CardsType;
-            Points = validator.CalculatePoints(this);
+            CardsType = validators.First(x => x.IsSatisfied(this));
+
+            return CardsType;
         }
     }
 }

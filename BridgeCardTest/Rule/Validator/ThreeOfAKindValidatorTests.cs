@@ -6,7 +6,7 @@ namespace BridgeCardTest.Rule.Validator
 {
     public class ThreeOfAKindValidatorTests
     {
-        private readonly ThreeOfAKindValidator _validator = new ThreeOfAKindValidator();
+        private readonly ThreeOfAKindTypeValidator _typeValidator = new ThreeOfAKindTypeValidator();
 
         [Fact]
         public void ShouldValidateSatisfy()
@@ -15,7 +15,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateThreeOfAKindCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(true, isSatisfied);
@@ -28,7 +28,7 @@ namespace BridgeCardTest.Rule.Validator
             var cards = CardsBuilder.CreateStraightCards();
 
             //Act
-            var isSatisfied = _validator.IsSatisfied(cards);
+            var isSatisfied = _typeValidator.IsSatisfied(cards);
 
             //Assert
             Assert.Equal(false, isSatisfied);
@@ -39,12 +39,14 @@ namespace BridgeCardTest.Rule.Validator
         {
             //Arrange
             var cards = CardsBuilder.CreateThreeOfAKindCards();
+            
+            var other = CardsBuilder.CreateThreeOfAKindCards();
 
             //Act
-            var points = _validator.CalculatePoints(cards);
+            var result = _typeValidator.CompareSameTypeCards(cards, other);
 
             //Assert
-            Assert.Equal(3, points);
+            Assert.Equal(ComparedResult.Tie, result);
         }
     }
 }

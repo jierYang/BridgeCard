@@ -7,15 +7,15 @@ using Xunit;
 
 namespace BridgeCardTest.Rule
 {
-    public class DemandTests
+    public class EvaluatorTests
     {
-        private readonly IDemand _demand;
+        private readonly IEvaluator _evaluator;
 
-        public DemandTests()
+        public EvaluatorTests()
         {
             var testBase = new Dependency();
 
-            _demand = testBase.Container.BeginLifetimeScope().Resolve<IDemand>();
+            _evaluator = testBase.Container.BeginLifetimeScope().Resolve<IEvaluator>();
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace BridgeCardTest.Rule
             var whiteCards = CardsBuilder.CreateHighCardHandCards();
             var whitePlayer = new Player(whiteCards, Role.White);
 
-            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Black wins - Straight flush", result);
         }
@@ -37,11 +37,11 @@ namespace BridgeCardTest.Rule
         {
             var whitePlayer = new Player(new HandCards("2D 3D 7S 4H 5C"), Role.White);
 
-            var blackPlayer = new Player(new HandCards("2D 3D AS 4H 5C"), Role.Black);
+            var blackPlayer = new Player(new HandCards("2D 3D 8S 4H 5C"), Role.Black);
 
-            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
-            Assert.Equal("Black wins - High Card", result);
+            Assert.Equal("Black wins - High Card: 8", result);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace BridgeCardTest.Rule
 
             var whitePlayer = new Player(cards, Role.White);
 
-            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Tie", result);
         }
@@ -67,7 +67,7 @@ namespace BridgeCardTest.Rule
             var whiteCards = CardsBuilder.CreateHighCardHandCards();
             var whitePlayer = new Player(whiteCards, Role.White);
 
-            var result = _demand.EvaluateCardsWinner(blackPlayer, whitePlayer);
+            var result = _evaluator.EvaluateCardsWinner(blackPlayer, whitePlayer);
 
             Assert.Equal("Black wins - Four of a kind ", result);
         }
