@@ -16,23 +16,14 @@ namespace BridgeCard.Rule.Validator
                 .Any(count => count == 4);
         }
 
-        public ComparedResult CompareSameTypeCards(HandCards blackHandCards, HandCards whiteHandCards)
+        public bool IsBlackCardsBiggerThanWhiteCards(HandCards blackHandCards, HandCards whiteHandCards)
         {
-            if (blackHandCards.IsSameCardsNumber(whiteHandCards))
-            {
-                return ComparedResult.Tie;
-            }
-
             if (blackHandCards.GetCardNumberOfCount(4) == whiteHandCards.GetCardNumberOfCount(4))
             {
-                return blackHandCards.GetCardNumberOfCount(1) > whiteHandCards.GetCardNumberOfCount(1)
-                    ? ComparedResult.BlackWin
-                    : ComparedResult.WhiteWin;
+                return blackHandCards.GetCardNumberOfCount(1) > whiteHandCards.GetCardNumberOfCount(1);
             }
 
-            return blackHandCards.GetCardNumberOfCount(4) > whiteHandCards.GetCardNumberOfCount(4)
-                ? ComparedResult.BlackWin
-                : ComparedResult.WhiteWin;
+            return blackHandCards.GetCardNumberOfCount(4) > whiteHandCards.GetCardNumberOfCount(4);
         }
     }
 }

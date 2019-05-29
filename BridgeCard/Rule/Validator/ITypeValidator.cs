@@ -8,6 +8,6 @@ namespace BridgeCard.Rule.Validator
 
         bool IsSatisfied(HandCards handCards);
 
-        ComparedResult CompareSameTypeCards(HandCards blackHandCards, HandCards whiteHandCards);
+        bool IsBlackCardsBiggerThanWhiteCards(HandCards blackHandCards, HandCards whiteHandCards);
     }
 }

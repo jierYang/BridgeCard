@@ -19,27 +19,27 @@ namespace BridgeCard.Rule
 
         public string EvaluateCardsWinner(Player.Player blackPlayer, Player.Player whitePlayer)
         {
+            if (blackPlayer.HandCards.IsSameCardsNumber(whitePlayer.HandCards))
+            {
+                return "Tie";
+            }
+
             var blackCardsType = blackPlayer.HandCards.GetCardsType(_validators);
 
             var whiteCardType = whitePlayer.HandCards.GetCardsType(_validators);
 
+            Player.Player winner;
+
             if (blackCardsType.Priority.Equals(whiteCardType.Priority))
             {
-                var comparedResult = blackCardsType.CompareSameTypeCards(blackPlayer.HandCards, whitePlayer.HandCards);
-
-                if (comparedResult.Equals(ComparedResult.Tie))
-                {
-                    return "Tie";
-                }
-
-                var sameTypeWinner = comparedResult.Equals(ComparedResult.BlackWin)
-                    ? blackPlayer
-                    : whitePlayer;
-
-                return GenerateWinResult(sameTypeWinner);
+                var isBlackWin =
+                    blackCardsType.IsBlackCardsBiggerThanWhiteCards(blackPlayer.HandCards, whitePlayer.HandCards);
+                winner = isBlackWin ? blackPlayer : whitePlayer;
             }
-
-            var winner = blackCardsType.Priority > whiteCardType.Priority ? blackPlayer : whitePlayer;
+            else
+            {
+                winner = blackCardsType.Priority > whiteCardType.Priority ? blackPlayer : whitePlayer;
+            }
 
             return GenerateWinResult(winner);
         }

@@ -19,25 +19,18 @@ namespace BridgeCard.Rule.Validator
             return count == 1;
         }
 
-        public ComparedResult CompareSameTypeCards(HandCards blackHandCards, HandCards whiteHandCards)
+        public bool IsBlackCardsBiggerThanWhiteCards(HandCards blackHandCards, HandCards whiteHandCards)
         {
-            if (blackHandCards.IsSameCardsNumber(whiteHandCards))
-            {
-                return ComparedResult.Tie;
-            }
-
             if (blackHandCards.GetCardNumberOfCount(2) == whiteHandCards.GetCardNumberOfCount(2))
             {
                 var maxSingleBlack = blackHandCards.GetMaxSingleCard();
 
                 var maxSingleWhite = whiteHandCards.GetMaxSingleCard();
-                
-                return maxSingleBlack > maxSingleWhite ? ComparedResult.BlackWin : ComparedResult.WhiteWin;
+
+                return maxSingleBlack > maxSingleWhite;
             }
 
-            return blackHandCards.GetCardNumberOfCount(2) > whiteHandCards.GetCardNumberOfCount(2)
-                ? ComparedResult.BlackWin
-                : ComparedResult.WhiteWin;
+            return blackHandCards.GetCardNumberOfCount(2) > whiteHandCards.GetCardNumberOfCount(2);
         }
     }
 }

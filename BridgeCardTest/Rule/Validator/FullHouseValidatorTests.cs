@@ -34,20 +34,5 @@ namespace BridgeCardTest.Rule.Validator
             //Assert
             Assert.Equal(false, isSatisfied);
         }
-
-        [Fact]
-        public void ShouldCalculateCorrectPints()
-        {
-            //Arrange
-            var cards = CardsBuilder.CreateFourOfAKindHandCards();
-
-            var other = CardsBuilder.CreateFourOfAKindHandCards();
-
-            //Act
-            var result = _typeValidator.CompareSameTypeCards(cards, other);
-
-            //Assert
-            Assert.Equal(ComparedResult.Tie, result);
-        }
     }
 }

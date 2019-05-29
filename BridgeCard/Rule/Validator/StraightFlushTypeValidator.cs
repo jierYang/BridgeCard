@@ -18,16 +18,10 @@ namespace BridgeCard.Rule.Validator
             return isSameColor && isStraight;
         }
 
-        public ComparedResult CompareSameTypeCards(HandCards blackHandCards, HandCards whiteHandCards)
+        public bool IsBlackCardsBiggerThanWhiteCards(HandCards blackHandCards, HandCards whiteHandCards)
         {
-            if (blackHandCards.IsSameCardsNumber(whiteHandCards))
-            {
-                return ComparedResult.Tie;
-            }
-
-            return blackHandCards.GetMaxCard().CardNumber.GetNumber() > whiteHandCards.GetMaxCard().CardNumber.GetNumber()
-                ? ComparedResult.BlackWin
-                : ComparedResult.WhiteWin;
+            return blackHandCards.GetMaxCard().CardNumber.GetNumber() >
+                   whiteHandCards.GetMaxCard().CardNumber.GetNumber();
         }
     }
 }

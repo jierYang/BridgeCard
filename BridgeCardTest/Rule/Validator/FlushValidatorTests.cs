@@ -33,19 +33,5 @@ namespace BridgeCardTest.Rule.Validator
             //Assert
             Assert.Equal(false, isSatisfied);
         }
-
-        [Fact]
-        public void ShouldCorrectCompareSameTypeCards()
-        {
-            //Arrange
-            var cards = CardsBuilder.CreateFlushHandCards();
-            var other = CardsBuilder.CreateFlushHandCards();
-
-            //Act
-            var result = _typeValidator.CompareSameTypeCards(cards,other);
-
-            //Assert
-            Assert.Equal(ComparedResult.Tie, result);
-        }
     }
 }

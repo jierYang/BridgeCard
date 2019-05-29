@@ -19,13 +19,8 @@ namespace BridgeCard.Rule.Validator
             return count == 2;
         }
 
-        public ComparedResult CompareSameTypeCards(HandCards blackHandCards, HandCards whiteHandCards)
+        public bool IsBlackCardsBiggerThanWhiteCards(HandCards blackHandCards, HandCards whiteHandCards)
         {
-            if (blackHandCards.IsSameCardsNumber(whiteHandCards))
-            {
-                return ComparedResult.Tie;
-            }
-
             var blackList = blackHandCards.Cards.GroupBy(x => x.CardNumber.GetNumber())
                 .Select(g => new {Number = g.Key, Count = g.Count()}).OrderBy(x => x.Number).Select(x => x.Number)
                 .ToList();
@@ -42,10 +37,10 @@ namespace BridgeCard.Rule.Validator
 
             if (blackMaxPair == whiteMaxPair)
             {
-                return blackMinPair > whiteMinPair ? ComparedResult.BlackWin : ComparedResult.WhiteWin;
+                return blackMinPair > whiteMinPair;
             }
 
-            return blackMaxPair > whiteMaxPair ? ComparedResult.BlackWin : ComparedResult.WhiteWin;
+            return blackMaxPair > whiteMaxPair;
         }
     }
 }
