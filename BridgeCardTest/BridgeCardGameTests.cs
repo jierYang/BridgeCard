@@ -25,11 +25,11 @@ namespace BridgeCardTest
             _bridgeCardGame.GetGameResult(blackCards, whiteCard);
 
             //Assert
-            var firstBlackCard = _bridgeCardGame.BlackPlayer.HandCards.Cards.First();
+            var firstBlackCard = _bridgeCardGame.BlackHandCards.Cards.First();
             Assert.Equal(CardColor.Heart, firstBlackCard.CardColor);
             Assert.Equal('2', firstBlackCard.CardNumber.Number);
 
-            var lastWhiteCard = _bridgeCardGame.WhitePlayer.HandCards.Cards.Last();            
+            var lastWhiteCard = _bridgeCardGame.WhiteHandCards.Cards.Last();            
             Assert.Equal(CardColor.Heart, lastWhiteCard.CardColor);
             Assert.Equal('A', lastWhiteCard.CardNumber.Number);
         }

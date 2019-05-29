@@ -2,14 +2,10 @@ namespace BridgeCard.Player
 {
     public class Player
     {
-        public HandCards HandCards;
-
         public Role Role;
 
-        public Player(HandCards handCards, Role role)
+        public Player(Role role)
         {
-            HandCards = handCards;
-            
             Role = role;
         }
     }

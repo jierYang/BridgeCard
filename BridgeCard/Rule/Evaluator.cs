@@ -17,45 +17,27 @@ namespace BridgeCard.Rule
             _validators = validators.OrderByDescending(x => x.Priority).ToList();
         }
 
-        public string EvaluateCardsWinner(Player.Player blackPlayer, Player.Player whitePlayer)
+        public GameResult EvaluateCardsWinner(HandCards blackHandCards, HandCards whiteHandCards)
         {
-            if (blackPlayer.HandCards.IsSameCardsNumber(whitePlayer.HandCards))
-            {
-                return "Tie";
-            }
+            var blackCardsType = blackHandCards.GetCardsType(_validators);
 
-            var blackCardsType = blackPlayer.HandCards.GetCardsType(_validators);
-
-            var whiteCardType = whitePlayer.HandCards.GetCardsType(_validators);
-
-            Player.Player winner;
+            var whiteCardType = whiteHandCards.GetCardsType(_validators);
 
             if (blackCardsType.Priority.Equals(whiteCardType.Priority))
             {
-                var isBlackWin =
-                    blackCardsType.IsBlackCardsBiggerThanWhiteCards(blackPlayer.HandCards, whitePlayer.HandCards);
-                winner = isBlackWin ? blackPlayer : whitePlayer;
-            }
-            else
-            {
-                winner = blackCardsType.Priority > whiteCardType.Priority ? blackPlayer : whitePlayer;
-            }
+                if (blackHandCards.IsSameCardsNumber(whiteHandCards))
+                {
+                    return GameResult.Tie;
+                }
 
-            return GenerateWinResult(winner);
-        }
-
-
-        private string GenerateWinResult(Player.Player winner)
-        {
-            if (winner.HandCards.CardsType.TypeName.Equals("High Card"))
-            {
-                return string.Format("{0} wins - {1}: {2}", winner.Role, winner.HandCards.CardsType.TypeName,
-                    winner.HandCards.GetMaxCard().CardNumber.Number == 'A'
-                        ? "Ace"
-                        : winner.HandCards.GetMaxCard().CardNumber.Number.ToString());
+                return blackCardsType.IsBlackCardsBiggerThanWhiteCards(blackHandCards, whiteHandCards)
+                    ? GameResult.BlackWin
+                    : GameResult.WhiteWin;
             }
 
-            return string.Format("{0} wins - {1}", winner.Role, winner.HandCards.CardsType.TypeName);
+            return blackCardsType.Priority > whiteCardType.Priority
+                ? GameResult.BlackWin
+                : GameResult.WhiteWin;
         }
     }
 }
